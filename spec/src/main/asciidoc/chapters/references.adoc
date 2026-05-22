@@ -23,15 +23,14 @@
 :lkJavaSE: link:https://docs.oracle.com/en/java/javase/25/docs/api/[Java Platform, Standard Edition (SE) API, version 25]
 
 // JAKARTA EE SPECS //
-// TODO: update for EE 12
-:lkEjbSpec: link:https://jakarta.ee/specifications/enterprise-beans/4.0/[Jakarta Enterprise Beans Specification, version 4.0]
-:lkPlatformSpec: link:https://jakarta.ee/specifications/platform/11/[Jakarta Platform Specification, version 11]
-:lkAuthSpec: link:https://jakarta.ee/specifications/authentication/3.0/[Jakarta Authentication Specification, version 3.0]
-:lkValSpec: link:https://jakarta.ee/specifications/bean-validation/3.1/[Jakarta Validation Specification, version 3.1]
-:lkTransSpec: link:https://jakarta.ee/specifications/transactions/2.0/[Jakarta Transactions Specification, version 2.0]
-:lkAnnoSpec: link:https://jakarta.ee/specifications/annotations/3.0/[Jakarta Annotations Specification, version 3.0]
-:lkServletSpec: link:https://jakarta.ee/specifications/servlet/6.1/[Jakarta Servlet Specification, version 6.1]
-:lkCdiSpec: link:https://jakarta.ee/specifications/cdi/4.1/[Jakarta Contexts and Dependency Injection (CDI) Specification, version 4.1]
+:lkEjbSpec: link:https://jakarta.ee/specifications/enterprise-beans/4.1/[Jakarta Enterprise Beans Specification, version 4.1]
+:lkPlatformSpec: link:https://jakarta.ee/specifications/platform/12/[Jakarta Platform Specification, version 12]
+:lkAuthSpec: link:https://jakarta.ee/specifications/authentication/3.1/[Jakarta Authentication Specification, version 3.1]
+:lkValSpec: link:https://jakarta.ee/specifications/bean-validation/4.0/[Jakarta Validation Specification, version 4.0]
+:lkTransSpec: link:https://jakarta.ee/specifications/transactions/2.1/[Jakarta Transactions Specification, version 2.1]
+:lkAnnoSpec: link:https://jakarta.ee/specifications/annotations/3.1/[Jakarta Annotations Specification, version 3.1]
+:lkServletSpec: link:https://jakarta.ee/specifications/servlet/6.2/[Jakarta Servlet Specification, version 6.2]
+:lkCdiSpec: link:https://jakarta.ee/specifications/cdi/5.0/[Jakarta Contexts and Dependency Injection (CDI) Specification, version 5.0]
 
 // JAKARTA EE API //
 :lkDeployApi: link:https://jakarta.ee/specifications/deployment/[Jakarta Deployment API, version 1.7]]
