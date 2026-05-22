@@ -3505,7 +3505,7 @@ passed as a _Subject_ instance, any _ConnectionRequestInfo instance_ ,
 and its configured set of properties, such as port number, server name,
 to create a new _ManagedConnection_ instance.
 * The _ManagedConnectionFactory_ initializes
-the state of the created _Managed-Connection_ instance and returns it to
+the state of the created _ManagedConnection_ instance and returns it to
 the default _ConnectionManager_ instance.
 * The _ConnectionManager_ instance calls the
 _ManagedConnection.getConnection_ method to get an application-level
@@ -3789,12 +3789,12 @@ image:conn-52.svg[image]
 
 ==== Interface: ManagedConnection
 
-The _jakarta.resource.spi.Managed_ Connection
+The _jakarta.resource.spi.ManagedConnection_
 instance represents a physical connection to an EIS and acts as a
 factory for connection handles.
 
 The following code extract shows the methods
-on _the ManagedConnection_ interface that are defined specifically for
+on the _ManagedConnection_ interface that are defined specifically for
 the transaction management contract:
 
 [source,Java]
@@ -4058,7 +4058,7 @@ involved in a transaction with none or multiple 2PC enabled RMs
 ==== Resource Adapter Requirements
 
 Jakarta Connectors does not require
-that all resource adapters must support Jakarta Transaction
+that all resource adapters must support a Jakarta Transaction
 _XAResource_ based transaction contract.
 
 If a resource adapter decides to support an
@@ -4137,7 +4137,7 @@ method and must be able to report whether it can guarantee its ability
 to commit the transaction branch. If the RM reports that it can, the RM
 must hold and record in a stable way all the resources necessary to
 commit the branch. It must hold all these resources until the TM directs
-it to commit or rollback the branch.
+it to commit or roll back the branch.
 
 * An RM that reports a heuristic completion to
 the TM must not discard its knowledge of the transaction branch. The RM
@@ -4288,8 +4288,8 @@ connection management contract. <<a976, OID: Connection Pool Management with Con
 handles the connection allocation request.
 
 . To handle the connection allocation request,
-the application server gets a _Managed-Connection_ instance either from
-the connection pool or creates a new _Managed-Connection_ instance.
+the application server gets a _ManagedConnection_ instance either from
+the connection pool or creates a new _ManagedConnection_ instance.
 <<a976, OID: Connection Pool Management with Connection Matching>> describes this step.
 
 . The application server registers itself as a
