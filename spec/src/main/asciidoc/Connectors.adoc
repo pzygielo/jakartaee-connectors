@@ -1,7 +1,7 @@
 :sectnums:
 == Jakarta Connectors, Version {specVersion}
 
-Copyright (c) 2013, 2025 Eclipse Foundation, Oracle and/or its affiliates
+Copyright (c) 2013, 2026 Eclipse Foundation, Oracle and/or its affiliates
 
 Oracle and Java are registered trademarks of Oracle and/or its 
 affiliates. Other names may be trademarks of their respective owners. 
@@ -3648,7 +3648,7 @@ transactions:
 
 * A transaction that is controlled and
 coordinated by a transaction manager external to the resource manager.
-This document refers to such a transaction as Jakarta Transaction or XA transaction.
+This document refers to such a transaction as a Jakarta Transaction or XA transaction.
 * A transaction that is managed internal to a
 resource manager. The coordination of such transactions involves no
 external transaction managers. This document refers to such transactions
@@ -3701,10 +3701,10 @@ EIS resource managers. The transaction manager manages transactions
 across multiple resource managers and supports propagation of the
 transaction context across distributed systems.
 
-The transaction manager supports a Jakarta Transaction
+The transaction manager supports a Jakarta Transactions
 _XAResource_ -based transaction management contract with a resource
 adapter and its underlying resource manager. The ERP system supports
-Jakarta Transaction  by implementing an _XAResource_ interface through its
+Jakarta Transactions by implementing an _XAResource_ interface through its
 resource adapter. The TP system also implements an _XAResource_
 interface. This interface enables the two resource managers to
 participate in transactions that are coordinated by an external
@@ -3727,7 +3727,7 @@ back.
 The transactions are demarcated either by the
 container (called container-managed demarcation) or by a component
 (called component-managed demarcation). In component-managed
-demarcation, an application component can use the Jakarta Transaction
+demarcation, an application component can use the Jakarta Transactions
 _UserTransaction_ interface or a transaction demarcation API specific to
 an EIS (for example, JDBC transaction demarcation using _java.sql.Connection_ ).
 
@@ -3926,7 +3926,7 @@ transactions for a resource manager.
 <<a1285, Interface: LocalTransaction>> has more details on the local transaction management
 contract.
 
-=== Relationship to Jakarta Transaction and JTS
+=== Relationship to Jakarta Transactions and JTS
 
 The {lkTransSpec}
 is a specification of interfaces between a
@@ -3944,12 +3944,12 @@ infrastructure for enterprise middleware. For example, an application
 server vendor can use a JTS implementation as the underlying transaction
 manager.
 
-==== Jakarta Transaction Interfaces
+==== Jakarta Transactions Interfaces
 
 The application server uses the
 _jakarta.transaction.TransactionManager_ and
 _jakarta.transaction.Transaction_ interfaces, specified
-in the Jakarta Transaction specification, for its contract with
+in the Jakarta Transactions specification, for its contract with
 the transaction manager.
 
 The application server uses the
@@ -4010,7 +4010,7 @@ Examples of RM: Oracle and DB2 installations
 that support 2PC in their _XAResource_ implementations.
 
 |Supported based on TM's requirement to be
-Jakarta Transaction/JTS and X/Open compliant, and RM's support for 2PC in the
+Jakarta Transactions/JTS and X/Open compliant, and RM's support for 2PC in the
 _XAResource_ interface.
 
 |TM does one-phase commit (1PC) optimization
@@ -4022,7 +4022,7 @@ Example of RM: DB2 installation that supports
 2PC in its _XAResource_ implementation.
 
 |Supported based on TM's requirement to be
-Jakarta Transaction/JTS and X/Open compliant, and RM's support for the XAResource
+Jakarta Transactions/JTS and X/Open compliant, and RM's support for the XAResource
 interface.
 
 Note: This scenario will also work if TM does
@@ -4058,7 +4058,7 @@ involved in a transaction with none or multiple 2PC enabled RMs
 ==== Resource Adapter Requirements
 
 Jakarta Connectors does not require
-that all resource adapters must support a Jakarta Transaction
+that all resource adapters must support a Jakarta Transactions
 _XAResource_ based transaction contract.
 
 If a resource adapter decides to support an
@@ -4073,10 +4073,10 @@ underlying resource manager for supporting the transaction contract is
 implementation-specific and is out of the scope of Jakarta Connectors.
 
 These requirements assume that a transaction
-manager (TM) supports Jakarta Transaction/XA and JTS requirements.
+manager (TM) supports Jakarta Transactions/XA and JTS requirements.
 
 The following set of requirements are based on
-the Jakarta Transaction and XA specifications and should be read
+the Jakarta Transactions and XA specifications and should be read
 in conjunction with these specifications. These detailed
 requirements are included in this document to clearly specify the
 requirements from the Jakarta Connectors perspective.
@@ -4201,7 +4201,7 @@ not altered by the communication process.
 
 ===== Support for Failure Recovery
 
-* A full Jakarta Transaction compliant _XAResource_
+* A full Jakarta Transactions compliant _XAResource_
 implementation that supports 2PC must maintain the status of all
 transaction branches in which it is involved. After responding
 affirmatively to the TM _prepare_ call, an RM should not erase its
@@ -4225,7 +4225,7 @@ discard its knowledge of all other branches.
 ==== Transaction Manager Requirements
 
 The following section specifies requirements
-of a TM. This section assumes that the TM is compliant with Jakarta Transaction/JTS
+of a TM. This section assumes that the TM is compliant with Jakarta Transactions/JTS
 and X/Open (see {lkXOpenSpec}) specifications.
 
 ===== Interfaces
@@ -4315,7 +4315,7 @@ instance associated with the _ManagedConnection_ instance.
 . The application server enlists the
 _XAResource_ instance with the transaction manager for the current
 transaction context. The application server uses the _Transaction_ .
-_enlistResource_ method (specified in the Jakarta Transaction specification) to enlist
+_enlistResource_ method (specified in the Jakarta Transactions specification) to enlist
 the _XAResource_ instance with the transaction manager. This enlistment
 informs the transaction manager about the resource manager instance
 participating in the transaction.
@@ -4343,7 +4343,7 @@ connection request.
 
 image:conn-55.svg[image]
 
-==== Scenario: Connection Close and Jakarta Transaction Transactional Cleanup
+==== Scenario: Connection Close and Jakarta Transactions Transactional Cleanup
 
 For each _ManagedConnection_ instance in the
 pool, the application server registers a _ConnectionEventListener_
@@ -5381,7 +5381,7 @@ The following are the requirements for an
 application server for the transaction management contract:
 
 * The application server must support a
-transaction manager that manages transactions using the Jakarta Transaction _XAResource_
+transaction manager that manages transactions using the Jakarta Transactions _XAResource_
 -based contract. The requirements for a transaction manager to support
 an _XAResource_ -based contract are specified in
 <<a1233, Transaction Manager Requirements>>.
@@ -10006,7 +10006,7 @@ call in order to send back an acknowledgement to its provider.
 
 Depending on the endpoint preferences, the
 application server brackets the message delivery to an endpoint instance
-with a Jakarta Transaction's transaction.
+with a Jakarta Transactions transaction.
 
 * This ensures that all the work done by the
 endpoint instance is enlisted as part of the transaction.
@@ -10173,7 +10173,7 @@ method call must be aborted by the application server.
 ==== Non-Transacted Delivery
 
 1. The application server does not bracket the
-message delivery to an endpoint instance within a Jakarta Transaction's transaction.
+message delivery to an endpoint instance within a Jakarta Transactions transaction.
 
 2. The resource adapter relies on the successful
 return of the message delivery call on the endpoint instance for
@@ -15695,14 +15695,14 @@ be any one of the following: _NoTransaction_ , _LocalTransaction_ , or
 _XATransaction_ . Note that this support is specified for a resource
 adapter and not for the underlying EIS instance. +
 _NoTransaction_ : The resource adapter does not support either the
-resource manager local or Jakarta Transaction's transactions. It does not implement either
+resource manager local or Jakarta Transactions transactions. It does not implement either
 _XAResource_ or _LocalTransaction_ interfaces. +
 _LocalTransaction_ : The resource adapter supports resource manager
 local transactions by implementing the _LocalTransaction_ interface. The
 local transaction management contract is specified in
 <<a1280, Local Transaction Management Contract>>. +
 _XATransaction_ : The resource adapter supports both resource manager
-local and Jakarta Transaction's transactions by implementing the _LocalTransaction_ and
+local and Jakarta Transactions transactions by implementing the _LocalTransaction_ and
 _XAResource_ interfaces respectively. The requirements for supporting
 the _XAResource_ based contract are specified in
 <<a1169, XAResource-based Transaction Contract>>.
@@ -18013,7 +18013,7 @@ connection has been denied.
 
 * _jakarta.resource.spi.LocalTransactionException_ . A
 _LocalTransaction-Exception_ represents various error conditions related
-to the local transaction management contract. The Jakarta Transaction specification
+to the local transaction management contract. The Jakarta Transactions specification
 specifies the _javax.transaction-.xa.XAException_ class for exceptions
 related to an _XAResource_ -based transaction management contract. The
 _LocalTransactionException_ is used for the local transaction management
