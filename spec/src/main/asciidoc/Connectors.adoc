@@ -3897,6 +3897,34 @@ initiate transaction completion. The _XAResource_ instance used during
 the transaction completion process need not be the one initially
 enlisted with the transaction manager for this transaction.
 
+[[a1146]]
+==== Interface: ExtendedXAResource
+
+The _jakarta.transaction.xa.ExtendedXAResource_ interface, provided by the
+Jakarta Transactions specification, is an optional extension of the
+_XAResource_ interface that adds a single method:
+
+[source,Java]
+----
+public interface jakarta.transaction.xa.ExtendedXAResource
+ extends XAResource {
+
+ boolean setReadOnly(Xid xid) throws XAException;
+
+}
+
+----
+
+===== Implementation
+
+A resource adapter's implementation of the _XAResource_ interface
+optionally implements the _ExtendedXAResource_ interface to receive
+notification prior to its enlistment into a transaction that operates
+in read-only mode. This gives the resource adapter the opportunity to
+apply optimizations, such as _Connection.setReadOnly(true)_ in JDBC,
+based on the knowledge that the application intends to only perform
+read operations within the transaction.
+
 [[a1147]]
 ==== Interface: LocalTransaction
 
@@ -3909,6 +3937,8 @@ public interface
 jakarta.resource.spi.LocalTransaction {
 
  public void begin() throws ResourceException;
+
+ public default void begin(boolean isReadOnly) throws ResourceException { ... }
 
  public void commit() throws ResourceException;
 
@@ -4186,6 +4216,23 @@ a transaction by asserting that the RM was not asked to update shared
 resources in this transaction branch. This response concludes the RM's
 involvement in the transaction, and the RM can release all resources and
 discard its knowledge of the transaction.
+
+===== Read-Only Transactions
+
+As part of its request to start a transaction, the application can indicate
+its intent to perform only read operations within the transaction.
+
+Before a transaction manager invokes the _XAResource.start_ method to
+enlist an _ExtendedXAResource_ instance into a read-only transaction,
+the transaction manager must invoke the _setReadOnly_ method on the
+_ExtendedXAResource_, supplying the same _Xid_.
+
+Alternatively, when using the <<a0812, Local Transaction Optimization>>,
+the application server must communicate the read-only intent via the
+_begin(isReadOnly)_ method of _LocalTransaction_.
+
+The resource adapter may use this information to apply optimizations
+to the enlisted _ManagedConnection_ for the duration of the transaction.
 
 ===== XID Support
 
@@ -5170,6 +5217,7 @@ support for this method is required independent of the transaction
 support level of the resource adapter. Note that the container makes the
 decision to invoke the _associateConnection_ method.
 
+[[a0812]]
 === Local Transaction Optimization
 
 If all the work done as a part of a
@@ -5206,6 +5254,12 @@ transaction optimization.
 
 The container is not required to support the
 local transaction optimization.
+
+An application server that uses the Local Transaction Optimization must
+communicate to the resource manager the application's intent to perform
+only read operations within a transaction. The application server
+achieves this by invoking the _begin(isReadOnly)_ method on the
+_LocalTransaction_ in place of the _begin()_ method.
 
 [[a1452]]
 === Runtime Transaction Support Level Specification
