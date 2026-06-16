@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2026 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -53,10 +53,46 @@ public interface LocalTransaction {
   public 
   void begin() throws ResourceException;
 
+  /**
+   * <p>Begin a local transaction that operates in the given mode.</p>
+   *
+   * <p>A value of {@code true} for {@code isReadOnly} indicates that the
+   * application intends to only perform read operations within the transaction
+   * and restricts transaction resolution such that the only possible outcome is
+   * to {@linkplain #rollback() roll back}. Based on this information, a resource
+   * adapter may apply optimizations such as {@link Connection#setReadOnly(boolean)
+   * Connection.setReadOnly(true)} in JDBC to put the {@link ManagedConnection}
+   * into read-only mode for the duration of the transaction. An attempt to
+   * {@link #commit()} a read-only transaction must roll back the transaction
+   * and raise {@link LocalTransactionException}.</p>
+   *
+   * <p>A value of {@code false} for {@code isReadOnly} does not restrict resolution
+   * of the transaction. This is the same behavior offered by the {@link #begin()}
+   * method.</p>
+   *
+   * <p>The default implementation of this method delegates to the {@link #begin()}
+   * method.</p>
+   *
+   * @param isReadOnly designates the transaction as read-only and requires a
+   *                   resolution of {@link #rollback()}
+   * @throws ResourceException                generic exception if operation fails
+   * @throws LocalTransactionException        error condition related to local
+   *                                          transaction management
+   * @throws ResourceAdapterInternalException error condition internal to the
+   *                                          resource adapter
+   * @throws EISSystemException               EIS instance specific error condition
+   * @since 2.2
+   */
+  public default void begin(boolean isReadOnly) throws ResourceException {
+      begin();
+  }
+
   /** Commit a local transaction 
    *
    *  @throws  ResourceException   generic exception if operation fails
-   *  @throws  LocalTransactionException  
+   *  @throws  LocalTransactionException
+   *                               if, due to read-only mode, the local transaction
+   *                               rolls back instead of commits, or for another
    *                               error condition related 
    *                               to local transaction management
    *  @throws  ResourceAdapterInternalException
